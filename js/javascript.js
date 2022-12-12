@@ -61,6 +61,7 @@ function generatoreGriglia(listaBombe, numCelle, cellePerRiga)
     griglia.classList.add("griglia")
     //variabile Contatore
     let noBombs = 0
+    document.getElementById("punti").innerText = "--"
     for (let i = 1; i <= numCelle; i++){
             let quadrato = generatoreQuadrati(i, cellePerRiga)
             griglia.appendChild(quadrato)
@@ -69,8 +70,10 @@ function generatoreGriglia(listaBombe, numCelle, cellePerRiga)
                 this.classList.add("active")
                 // Controllo se ho selezionato una bomba
                 if (listaBombe.includes(parseInt(this.innerText))){
-                    this.classList.add("bomb")
-                    griglia.classList.add("esplosione")
+                    for (let j = 0; j < listaBombe.length; j++ ){
+                        let bomb = griglia.childNodes[listaBombe[j] - 1];
+                        bomb.classList.add("bomb")
+                    }
                     document.getElementById("esito").innerHTML = "Hai preso la bomba: " +this.innerText
                     document.getElementById("esito").classList.add("red")
                     
@@ -85,7 +88,7 @@ function generatoreGriglia(listaBombe, numCelle, cellePerRiga)
                     }
                 }
                 
-            })
+            }, {once:"true"})
 
     }
     document.querySelector(".contenitore-griglia").appendChild(griglia)
