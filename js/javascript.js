@@ -50,6 +50,7 @@ function gameDifficulty()
 
     listaBombe = generatoreBombe(1, numCelle)
     generatoreGriglia(listaBombe, numCelle, cellePerRiga)
+    console.log(listaBombe)
 }
 
 
@@ -58,24 +59,37 @@ function generatoreGriglia(listaBombe, numCelle, cellePerRiga)
     document.querySelector(".contenitore-griglia").innerHTML = ""
     let griglia = document.createElement("div")
     griglia.classList.add("griglia")
+    //variabile Contatore
+    let noBombs = 0
     for (let i = 1; i <= numCelle; i++){
             let quadrato = generatoreQuadrati(i, cellePerRiga)
             griglia.appendChild(quadrato)
             
             quadrato.addEventListener("click", function(){
-                this.classList.toggle("active")
+                this.classList.add("active")
                 // Controllo se ho selezionato una bomba
                 if (listaBombe.includes(parseInt(this.innerText))){
                     this.classList.add("bomb")
                     griglia.classList.add("esplosione")
-                    alert("Hai preso una boba " +this.innerText)
-                    quadrato.classList.add("active")
+                    document.getElementById("esito").innerHTML = "Hai preso la bomba: " +this.innerText
+                    document.getElementById("esito").classList.add("red")
+                    
+                } else {
+                    noBombs++
+                    document.getElementById("punti").innerText = noBombs
+                    console.log(noBombs)
+                    if (noBombs == numCelle - 16) {
+                        document.getElementById("esito").innerHTML = "Hai Vinto!"
+                        document.getElementById("esito").classList.add("green")
+                        
+                    }
                 }
                 
             })
-    
+
     }
     document.querySelector(".contenitore-griglia").appendChild(griglia)
+    
     
 }
 
