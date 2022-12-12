@@ -10,8 +10,23 @@ function generatoreQuadrati(num, cellePerRiga)
     return elemento
 }
 
+//Funzione generatrice di bombe
+function generatoreBombe (min, max)
+{
+    let bombs = []
+    let i = 0
+    while (i < 16) {
+        let singleBomb = Math.floor(Math.random() * (max - min + 1) +min)
+        if (!bombs.includes(singleBomb)){
+            bombs.push(singleBomb)
+        }
+    }
+    return bombs
+}
+
 function gameDifficulty()
 {
+    let listaBombe = []
     let scelta = parseInt(document.getElementById("seleziona").value)
     let numCelle
     let cellePerRiga
@@ -35,11 +50,12 @@ function gameDifficulty()
             break;
     }
 
-    generatoreGriglia(numCelle, cellePerRiga)
+    listaBombe = generatoreBombe(1, numCelle)
+    generatoreGriglia(listaBombe, numCelle, cellePerRiga)
 }
 
 
-function generatoreGriglia(numCelle, cellePerRiga)
+function generatoreGriglia(listaBombe, numCelle, cellePerRiga)
 {
     document.querySelector(".contenitore-griglia").innerHTML = ""
     let griglia = document.createElement("div")
@@ -50,11 +66,14 @@ function generatoreGriglia(numCelle, cellePerRiga)
             
             quadrato.addEventListener("click", function(){
                 this.classList.toggle("active")
-                console.log(`Hai selezionato il numero ${this.innerText}`)
+                // Controllo se ho selezionato una bomba
+                if (listaBombe.includes(this.innerText)){
+                    console.log(`Hai selezionato una bomba`)
+                }
+                
             })
     
     }
-    console.log(griglia)
     document.querySelector(".contenitore-griglia").appendChild(griglia)
     
 }
