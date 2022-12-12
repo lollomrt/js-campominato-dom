@@ -13,11 +13,10 @@ function generatoreBombe (min, max)
 {
     let bombs = []
     let i = 0
-    while (i < 16) {
+    while (bombs.length < 16) {
         let singleBomb = Math.floor(Math.random() * (max - min + 1) +min)
         if (!bombs.includes(singleBomb)){
             bombs.push(singleBomb)
-            i++
         }
     }
     return bombs
