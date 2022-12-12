@@ -1,9 +1,7 @@
 function generatoreQuadrati(num, cellePerRiga)
 {
-    console.log("ciao")
     let elemento = document.createElement("div")
     elemento.classList.add("square")    
-    let altezzaGriglia = "100px"
     elemento.style.width = `calc(100% / ${cellePerRiga})`
     elemento.style.height = `calc(100% / ${cellePerRiga})`
     elemento.innerText = num
@@ -19,6 +17,7 @@ function generatoreBombe (min, max)
         let singleBomb = Math.floor(Math.random() * (max - min + 1) +min)
         if (!bombs.includes(singleBomb)){
             bombs.push(singleBomb)
+            i++
         }
     }
     return bombs
@@ -67,8 +66,11 @@ function generatoreGriglia(listaBombe, numCelle, cellePerRiga)
             quadrato.addEventListener("click", function(){
                 this.classList.toggle("active")
                 // Controllo se ho selezionato una bomba
-                if (listaBombe.includes(this.innerText)){
-                    console.log(`Hai selezionato una bomba`)
+                if (listaBombe.includes(parseInt(this.innerText))){
+                    this.classList.add("bomb")
+                    griglia.classList.add("esplosione")
+                    alert("Hai preso una boba " +this.innerText)
+                    quadrato.classList.add("active")
                 }
                 
             })
