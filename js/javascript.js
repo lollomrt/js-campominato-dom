@@ -76,7 +76,7 @@ function generatoreGriglia(listaBombe, numCelle, cellePerRiga)
                     }
                     document.getElementById("esito").innerHTML = "Hai preso la bomba: " +this.innerText
                     document.getElementById("esito").classList.add("red")
-                    
+                    griglia.classList.add("esplosione")
                 } else {
                     noBombs++
                     document.getElementById("punti").innerText = noBombs
